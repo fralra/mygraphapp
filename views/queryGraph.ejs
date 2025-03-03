@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="/stylesheets/alta.css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/fnd/gallery/2210.1.0/images/iconfont/ojuxIconFont.css" />
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+
+  <script type="module">
+    import * as ogvt from '/javascripts/index.js';
+
+    const styles = {
+      edge: {
+        color: 'lightgray',
+        label: '${properties.AMOUNT}'
+      },
+      "vertex[properties.ID === '<%= project_name %>']": {
+        color: 'red',
+        label: '${properties.ID}'
+      },
+      vertex: {
+        color: 'green',
+        size: 10,
+        label: '${properties.ID}',
+        icon: 'oj-ux-ico-currency-dollar'
+      }
+    };
+
+    const expand = {};
+    const grafoo = <%- JSON.stringify(graphData) %>;
+
+    const visualization = new GraphVisualization({
+      target: document.getElementById('graphviz'),
+      props: {
+        data: grafoo,
+        styles,
+        expand,
+        settings: { layout: 'force',
+        showLegend: false
+         },
+        featureFlags: {
+          exploration: {
+            expand: false,
+            focus: false,
+            group: true,
+            ungroup: true,
+            drop: true,
+            undo: true,
+            redo: true,
+            reset: true
+          },
+          modes: {
+            interaction: true,
+            fitToScreen: true,
+            sticky: true
+          },
+          pagination: false
+        }
+      }
+    });
+
+    const vizSection = document.getElementById('visualization');
+    vizSection.style.display = 'block';
+
+
+  </script>
+
+
+</head>
+
+<body>
+  <main>
+    <div class="flex mb-4">
+      <div class="w-full">
+        <h1
+          class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
+          <%= title %>
+        </h1>
+
+
+
+        <div class="table-data">
+          <p class="mb-3 text-lg text-gray-500 md:text-xl dark:text-gray-400">
+            Account to investigate: <b>
+              <%= project_name %>
+            </b>
+          </p>
+        </div>
+
+
+        <div class="container">
+          <div class="example" style="width: 1200px">
+            <p class="mb-3 text-base text-gray-500 dark:text-gray-400">
+              Showing accounts involved in money transfers bigger than 5000 ending in the investigated account, looking
+              up to 3 hops distance.
+            </p>
+            <p class="mb-3 text-base text-gray-500 dark:text-gray-400">
+               Investigated account is shown in red.
+            </p>
+
+            <div id="visualization">
+              <div style="height: 650px" id="graphviz"></div>
+            </div>
+          </div>
+        </div>
+        <div class="table-data" id="botonera-navegacion">
+          <button
+            class='class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+            role='button' onclick="window.location.href='/graph'">New account</button>
+          <button
+            class='class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+            role='button' onclick="window.location.href='/'">Home</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
