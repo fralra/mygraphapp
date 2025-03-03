@@ -7,5 +7,5 @@ It only allows to run a simple PGQL query that needs a single parameter.
 ## Screenshots
 
 These are some screenshots of the application:
-[<img src="[screenshots/scsh01.png](https://github.com/fralra/mygraphapp/blob/main/screenshots/scsh01.png)">]
+[<img src="screenshots/scsh01.png>](https://github.com/fralra/mygraphapp/blob/main/screenshots/scsh01.png)
 
